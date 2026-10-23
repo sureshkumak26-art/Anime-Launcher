@@ -103,7 +103,7 @@ For most devices, <b>Krypton Wrapper (Recommended)</b> offers the highest stabil
 
 <details>
 <summary><b>4. Can I play with my friends on PC?</b></summary>
-Yes! Because Cubiq runs genuine Minecraft: Java Edition bytecode, you can connect to any Java Edition server, Realm (with Microsoft sign-in), or local Wi-Fi LAN world hosted by a PC running the same game version.
+Yes! Because Anime Launcher runs genuine Minecraft: Java Edition bytecode, you can connect to any Java Edition server, Realm (with Microsoft sign-in), or local Wi-Fi LAN world hosted by a PC running the same game version.
 </details>
 
 <details>
@@ -126,7 +126,7 @@ Yes. By installing Fabric with Iris/Sodium, or Forge with Embeddium/Oculus, you 
 ```bash
 # Clone repository with submodules
 git clone --recursive https://github.com/sureshkumak26-art/Anime-Launcher.git
-cd Cubiq-Launcher
+cd Anime-Launcher
 
 # Compile Debug APK
 ./gradlew CubiqLauncher:assembleDebug
