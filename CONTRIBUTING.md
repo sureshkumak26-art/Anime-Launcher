@@ -1,6 +1,6 @@
-# Contributing to Cubiq Launcher
+# Contributing to Anime Launcher Launcher
 
-Thank you for your interest in contributing to **Cubiq Launcher**! As an open-source project driven by community feedback, we welcome code contributions, issue reports, translations, and ideas.
+Thank you for your interest in contributing to **Anime Launcher Launcher**! As an open-source project driven by community feedback, we welcome code contributions, issue reports, translations, and ideas.
 
 ---
 
@@ -15,11 +15,11 @@ Thank you for your interest in contributing to **Cubiq Launcher**! As an open-so
 
 ## 🐛 Reporting Bugs
 
-Before creating an issue, please check the [existing issues](https://github.com/VivxKumar07/Cubiq-Launcher/issues) to see if someone else has already reported it.
+Before creating an issue, please check the [existing issues](https://github.com/VivxKumar07/Anime Launcher-Launcher/issues) to see if someone else has already reported it.
 
-When filing a bug report, please use our **[Bug Report Template](https://github.com/VivxKumar07/Cubiq-Launcher/issues/new?template=bug_report.yml)** and include:
+When filing a bug report, please use our **[Bug Report Template](https://github.com/VivxKumar07/Anime Launcher-Launcher/issues/new?template=bug_report.yml)** and include:
 - **Device Model & Android Version** (e.g. Poco X3 Pro, Android 13)
-- **Cubiq Launcher Version** (e.g. v1.0.0 Debug/Release)
+- **Anime Launcher Launcher Version** (e.g. v1.0.0 Debug/Release)
 - **Renderer Selected** (Krypton, Kopper Zink, GL4ES, etc.)
 - **Minecraft Version & Loader** (e.g. 1.21.4 Fabric)
 - **Detailed Log File**: Exported crash or game log from the launcher.
@@ -29,8 +29,8 @@ When filing a bug report, please use our **[Bug Report Template](https://github.
 
 ## 💡 Suggesting Features & Enhancements
 
-Have an idea to make Cubiq faster, more lightweight, or easier to use?
-- Open a **[Feature Request](https://github.com/VivxKumar07/Cubiq-Launcher/issues/new?template=feature_request.yml)**.
+Have an idea to make Anime Launcher faster, more lightweight, or easier to use?
+- Open a **[Feature Request](https://github.com/VivxKumar07/Anime Launcher-Launcher/issues/new?template=feature_request.yml)**.
 - Clearly describe the problem your feature solves and how it enhances the user experience.
 
 ---
@@ -44,8 +44,8 @@ Have an idea to make Cubiq faster, more lightweight, or easier to use?
 
 2. **Clone & Compile**:
    ```bash
-   git clone --recursive https://github.com/VivxKumar07/Cubiq-Launcher.git
-   cd Cubiq-Launcher
+   git clone --recursive https://github.com/VivxKumar07/Anime Launcher-Launcher.git
+   cd Anime Launcher-Launcher
    ./gradlew CubiqLauncher:assembleDebug
    ```
 
@@ -76,4 +76,4 @@ Have an idea to make Cubiq faster, more lightweight, or easier to use?
 - **Aesthetic**: Maintain the authentic Minecraft desktop launcher pixel aesthetic (custom pixel button styles, dark background gradients, authentic click sounds).
 - **Architecture**: Keep UI components isolated from launch-engine JNI native code.
 
-Thank you for helping make Cubiq Launcher the best Minecraft Java launcher on mobile!
+Thank you for helping make Anime Launcher Launcher the best Minecraft Java launcher on mobile!
