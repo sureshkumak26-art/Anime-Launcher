@@ -1,10 +1,10 @@
-name: Build APK
+name: Android APK Build
 
 on:
-  workflow_dispatch:
   workflow_call:
     inputs:
       variant:
+        description: Gradle build variant
         required: true
         type: string
     secrets:
@@ -12,68 +12,77 @@ on:
         required: false
       STORE_PASSWORD:
         required: false
+      KEY_ALIAS:
+        required: false
+      SIGNING_KEYSTORE_BASE64:
+        required: false
       OAUTH_CLIENT_ID:
         required: false
       CURSEFORGE_API_KEY:
         required: false
 
+permissions:
+  contents: read
+
 jobs:
   build:
-    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        arch: ["all", "arm", "arm64", "x86", "x86_64"]
       fail-fast: false
+      matrix:
+        arch: [all, arm, arm64, x86, x86_64]
 
     env:
       KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
       STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+      KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+      SIGNING_KEYSTORE_BASE64: ${{ secrets.SIGNING_KEYSTORE_BASE64 }}
       OAUTH_CLIENT_ID: ${{ secrets.OAUTH_CLIENT_ID }}
       CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
 
     steps:
-      - name: Checkout
+      - name: Checkout source and submodules
         uses: actions/checkout@v6
         with:
           submodules: recursive
+          persist-credentials: false
 
       - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
-          distribution: "temurin"
-          java-version: "21"
+          distribution: temurin
+          java-version: '21'
 
-      - name: Setup Gradle
+      - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v5
         with:
-          add-job-summary: "on-failure"
+          add-job-summary: on-failure
 
-      - name: Build APK for ${{ matrix.arch }}
+      - name: Verify Gradle wrapper
         run: |
-          chmod +x gradlew
-          ./gradlew CubiqLauncher:assemble${{ inputs.variant }} -Darch=${{ matrix.arch }}
+          chmod +x ./gradlew
+          ./gradlew --version
 
-      - name: Upload Release APK for ${{ matrix.arch }}
-        if: inputs.variant == 'Release'
-        continue-on-error: true
+      - name: Run JVM unit tests
+        if: matrix.arch == 'all' && inputs.variant == 'Debug'
+        run: ./gradlew :CubiqLauncher:testDebugUnitTest --no-daemon
+
+      - name: Build ${{ inputs.variant }} APK (${{ matrix.arch }})
+        run: ./gradlew :CubiqLauncher:assemble${{ inputs.variant }} -Darch=${{ matrix.arch }} --no-daemon
+
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v7
         with:
-          name: release apk (${{ matrix.arch }})
-          path: CubiqLauncher/build/outputs/apk/release/*.apk
+          name: anime-launcher-${{ inputs.variant }}-${{ matrix.arch }}
+          path: CubiqLauncher/build/outputs/apk/${{ inputs.variant == 'Release' && 'release' || 'debug' }}/*.apk
+          if-no-files-found: error
+          retention-days: 14
 
-      - name: Upload Release Mapping for ${{ matrix.arch }}
+      - name: Upload release mapping
         if: inputs.variant == 'Release'
-        continue-on-error: true
         uses: actions/upload-artifact@v7
         with:
-          name: mapping (${{ matrix.arch }})
+          name: anime-launcher-mapping-${{ matrix.arch }}
           path: CubiqLauncher/build/outputs/mapping/release/mapping.txt
-
-      - name: Upload Debug APK for ${{ matrix.arch }}
-        if: inputs.variant == 'Debug'
-        continue-on-error: true
-        uses: actions/upload-artifact@v7
-        with:
-          name: debug apk (${{ matrix.arch }})
-          path: CubiqLauncher/build/outputs/apk/debug/*.apk
+          if-no-files-found: warn
+          retention-days: 14

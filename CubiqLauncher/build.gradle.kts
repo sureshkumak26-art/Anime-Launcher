@@ -27,6 +27,13 @@ val defaultStorePassword = project.findProperty("default_store_password") as? St
 val defaultKeyPassword = project.findProperty("default_key_password") as? String ?: error("The \"default_key_password\" property is not set in gradle.properties.")
 val defaultCurseForgeApiKey = project.findProperty("curseforge_api_key") as? String
 
+val signingKeystoreBase64 = System.getenv("SIGNING_KEYSTORE_BASE64")
+if (!signingKeystoreBase64.isNullOrBlank()) {
+    val signingDirectory = file("signing")
+    signingDirectory.mkdirs()
+    file("signing/release.jks").writeBytes(java.util.Base64.getDecoder().decode(signingKeystoreBase64))
+}
+
 val projectArch: String = (project.findProperty("projectArch") as? String)
     ?: (project.findProperty("arch") as? String)
     ?: System.getProperty("arch", "all")
@@ -51,17 +58,13 @@ android {
     }
 
     signingConfigs {
+        // Release signing material is supplied through CI/local environment secrets.
+        // Never commit keystores or signing passwords to the repository.
         create("releaseBuild") {
-            storeFile = file("zalith_launcher.jks")
-            storePassword = getKeyFromLocal("STORE_PASSWORD", ".store_password.txt", defaultStorePassword)
-            keyAlias = "movtery_zalith"
-            keyPassword = getKeyFromLocal("KEY_PASSWORD", ".key_password.txt", defaultKeyPassword)
-        }
-        create("debugBuild") {
-            storeFile = file("zalith_launcher_debug.jks")
-            storePassword = defaultStorePassword
-            keyAlias = "movtery_zalith_debug"
-            keyPassword = defaultKeyPassword
+            storeFile = file("signing/release.jks")
+            storePassword = System.getenv("STORE_PASSWORD").orEmpty()
+            keyAlias = System.getenv("KEY_ALIAS") ?: "anime_launcher"
+            keyPassword = System.getenv("KEY_PASSWORD").orEmpty()
         }
     }
 
@@ -78,10 +81,16 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
-            signingConfig = if (System.getenv("STORE_PASSWORD") != null || File(rootDir, ".store_password.txt").exists()) {
+            val releaseKeystore = file("signing/release.jks")
+            val hasReleaseSigning = releaseKeystore.isFile &&
+                !System.getenv("STORE_PASSWORD").isNullOrBlank() &&
+                !System.getenv("KEY_PASSWORD").isNullOrBlank() &&
+                !System.getenv("SIGNING_KEYSTORE_BASE64").isNullOrBlank()
+            signingConfig = if (hasReleaseSigning) {
                 signingConfigs.getByName("releaseBuild")
             } else {
-                signingConfigs.getByName("debugBuild")
+                // Produce an installable CI artifact without pretending it is a production-signed release.
+                signingConfigs.getByName("debug")
             }
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -91,7 +100,7 @@ android {
         debug {
             isMinifyEnabled = false
             versionNameSuffix = "-debug"
-            signingConfig = signingConfigs.getByName("debugBuild")
+            // Use Android Gradle Plugin's generated debug keystore.
         }
     }
 
