@@ -7,11 +7,6 @@ plugins {
 group = "com.animecloud.animelauncher"
 version = "0.1.0"
 
-repositories {
-    google()
-    mavenCentral()
-}
-
 dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.material3)
