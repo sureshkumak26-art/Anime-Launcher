@@ -1,0 +1,43 @@
+name: Build Anime Launcher Windows EXE
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/windows-native-exe
+    paths:
+      - "windows-desktop/**"
+      - ".github/workflows/windows-exe.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  windows-exe:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Build Windows installer
+        working-directory: windows-desktop
+        run: gradle packageExe --no-daemon
+
+      - name: Upload EXE installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: Anime-Launcher-Windows-x64-EXE
+          path: windows-desktop/build/compose/binaries/main/exe/*.exe
+          if-no-files-found: error
+          retention-days: 14
