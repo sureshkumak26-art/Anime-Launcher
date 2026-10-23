@@ -3,7 +3,7 @@
 # 🎌 Anime Launcher
 ### The Premier Minecraft: Java Edition Launcher for Android
 
-[![GitHub Release](https://img.shields.io/github/v/release/VivxKumar07/Cubiq-Launcher?style=for-the-badge&color=55FF55&logo=github)](https://github.com/sureshkumak26-art/Anime-Launcher/releases/latest)
+[![GitHub Release](https://img.shields.io/github/v/release/sureshkumak26-art/Anime-Launcher?style=for-the-badge&color=55FF55&logo=github)](https://github.com/sureshkumak26-art/Anime-Launcher/releases/latest)
 [![Platform](https://img.shields.io/badge/Platform-Android_8.0+-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/sureshkumak26-art/Anime-Launcher)
 [![Minecraft](https://img.shields.io/badge/Minecraft-Java_Edition_1.7--1.21+-3C8527?style=for-the-badge&logo=minecraft&logoColor=white)](https://www.minecraft.net)
 [![License](https://img.shields.io/badge/License-GPL--3.0-blue?style=for-the-badge)](LICENSE)
