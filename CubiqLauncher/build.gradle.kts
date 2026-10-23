@@ -66,7 +66,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.cubiq.app"
+        applicationId = "com.anime.launcher"
         minSdk = 26
         targetSdk = 34
         versionCode = launcherVersionCode
