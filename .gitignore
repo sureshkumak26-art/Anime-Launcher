@@ -52,3 +52,8 @@ generate_asset_pack.py
 .vs/
 .zcodeignore
 release-apks/
+
+# Signing material must never be committed
+*.jks
+*.keystore
+CubiqLauncher/signing/
