@@ -19,8 +19,7 @@ private val Mint = Color(0xFF98FCE4)
 private val Muted = Color(0xFF9AA4B5)
 
 fun main() = androidx.compose.ui.window.singleWindowApplication(
-    title = "Anime Launcher",
-    state = androidx.compose.ui.window.rememberWindowState(width = 1100.dp, height = 720.dp)
+    title = "Anime Launcher"
 ) {
     var status by remember { mutableStateOf("Windows desktop preview — game launching is not wired up yet.") }
     var gameDirectory by remember { mutableStateOf(defaultGameDirectory().absolutePath) }
