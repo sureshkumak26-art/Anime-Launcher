@@ -24,7 +24,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CubiqLauncher"
+rootProject.name = "AnimeLauncher"
 include(":CubiqLauncher")
 include(":LWJGL")
 include(":LWJGL:patches")
@@ -39,3 +39,4 @@ include(":CardGrid")
 include(":Terracotta")
 include(":InputMap")
 include(":Guide")
+include(":windows-desktop")
