@@ -1,6 +1,6 @@
 /*
  * Cubiq Launcher
- * News Screen: Official Mojang Minecraft News & Cubiq GitHub Releases / Announcements
+ * News Screen: Official Mojang Minecraft News & Anime Launcher Releases / Announcements
  */
 
 package com.movtery.zalithlauncher.ui.screens.content.minecraft
@@ -62,7 +62,7 @@ fun MinecraftNewsScreen(
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
-    var selectedTab by remember { mutableIntStateOf(0) } // 0: Minecraft News, 1: Cubiq News
+    var selectedTab by remember { mutableIntStateOf(0) } // 0: Minecraft News, 1: Anime Launcher News
 
     val liveNews by MinecraftOfficialContentManager.news.collectAsStateWithLifecycle()
     val cubiqReleases by CubiqGitHubManager.releases.collectAsStateWithLifecycle()
@@ -104,7 +104,7 @@ fun MinecraftNewsScreen(
                 .fillMaxSize()
                 .padding(horizontal = 14.dp, vertical = 8.dp)
         ) {
-            // Top Tabs: [ MINECRAFT NEWS ] | [ CUBIQ NEWS ]
+            // Top Tabs: [ MINECRAFT NEWS ] | [ ANIME NEWS ]
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -138,7 +138,7 @@ fun MinecraftNewsScreen(
                     )
                 }
 
-                // Cubiq News Tab Button
+                // Anime Launcher News Tab Button
                 Box(
                     modifier = Modifier
                         .height(34.dp)
@@ -160,7 +160,7 @@ fun MinecraftNewsScreen(
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            text = "CUBIQ NEWS & UPDATES",
+                            text = "ANIME NEWS & UPDATES",
                             color = if (selectedTab == 1) Color.White else Color(0xFFAAAAAA),
                             fontFamily = MinecraftFontFamily,
                             fontWeight = FontWeight.Bold,
@@ -224,7 +224,7 @@ fun MinecraftNewsScreen(
                         }
                     }
                 } else {
-                    // Cubiq GitHub News & Announcements
+                    // Anime Launcher GitHub News & Announcements
                     if (cubiqReleases.isEmpty()) {
                         Box(
                             modifier = Modifier
