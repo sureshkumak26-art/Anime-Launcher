@@ -121,7 +121,7 @@ fun AboutInfoScreen(
                         )
 
                         Text(
-                            text = "Notice: Cubiq Launcher is an unofficial version (fork) of Zalith Launcher 2, modified under the GNU General Public License v3.",
+                            text = "Anime Launcher is an independent, unofficial fork of Zalith Launcher 2. It is not affiliated with, endorsed by, or supported by the original Zalith Launcher authors, Mojang Studios, or Microsoft Corporation. This project is distributed under the GNU General Public License v3 (GPLv3).",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -192,7 +192,7 @@ fun AboutInfoScreen(
                             style = MaterialTheme.typography.bodySmall
                         )
                         Text(
-                            text = "• Official Cubiq GitHub news feed and automated release update dialog",
+                            text = "• Anime Launcher GitHub news feed and automated release update dialog",
                             style = MaterialTheme.typography.bodySmall
                         )
                         Text(
